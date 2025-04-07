@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CRUD Items</title>
+</head>
+<body>
+  <h2>Item Manager</h2>
+
+  <!-- CREATE -->
+  <form action="/add" method="post">
+    <input name="name" placeholder="Enter item" required>
+    <button type="submit">Add</button>
+  </form>
+
+  {% if items %}
+    <ul>
+      {% for item in items %}
+        <li>
+          <strong>{{ item[1] }}</strong>
+
+          <!-- UPDATE -->
+          <form action="/update/{{ item[0] }}" method="post" style="display:inline;">
+            <input type="text" name="new_name" placeholder="New name" required>
+            <button type="submit">Update</button>
+          </form>
+
+          <!-- DELETE -->
+          <form action="/delete/{{ item[0] }}" method="post" style="display:inline;">
+            <button type="submit" onclick="return confirm('Delete this item?')">Delete</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p><em>No items found.</em></p>
+  {% endif %}
+</body>
+</html>
